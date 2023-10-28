@@ -3,27 +3,29 @@ import * as yup from "yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
-import { SignUpLink } from "links";
-import { useSignInMutation } from "./mutations";
+import { SignInLink } from "links";
+import { useSignUpMutation } from "./mutations";
 import { useContext } from "react";
 import AuthContext from "store/auth-context";
 
 interface IFormInput {
+  username: string;
   email: string;
   password: string;
 }
 
-export default function useSignIn() {
-  const mutation = useSignInMutation();
+export default function useSignUp() {
+  const mutation = useSignUpMutation();
   const navigate = useNavigate();
   const ctx = useContext(AuthContext);
 
-  const goToSignUp = () => {
-    navigate(SignUpLink);
+  const goToSignIn = () => {
+    navigate(SignInLink);
     ctx.isError = false;
   };
 
   let userSchema = yup.object().shape({
+    username: yup.string().required("Nazwa użytkownika jest wymagana"),
     email: yup
       .string()
       .email("Niepoprawny typ maila")
@@ -38,8 +40,8 @@ export default function useSignIn() {
     resolver: yupResolver(userSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = (signInData) => {
-    mutation.mutate(signInData);
+  const onSubmit: SubmitHandler<IFormInput> = (signUpData) => {
+    mutation.mutate(signUpData);
   };
 
   return {
@@ -47,6 +49,6 @@ export default function useSignIn() {
     handleSubmit,
     onSubmit,
     control,
-    goToSignUp,
+    goToSignIn,
   };
 }

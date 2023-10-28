@@ -1,5 +1,6 @@
-import { SignInLink } from "links";
+import { SignInLink, SignUpLink } from "links";
 import SignIn from "modules/views/authorization/SignIn";
+import SignUp from "modules/views/authorization/SignUp";
 import { createBrowserRouter } from "react-router-dom";
 
 export default function router() {
@@ -7,6 +8,10 @@ export default function router() {
     {
       path: SignInLink,
       element: <SignIn />,
+    },
+    {
+      path: SignUpLink,
+      element: <SignUp />,
     },
   ]);
 
