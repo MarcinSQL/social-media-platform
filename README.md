@@ -1,3 +1,3 @@
 # Social Media App
 
-Created in React.js for school project
+Created for school project
